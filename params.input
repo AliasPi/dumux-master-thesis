@@ -1,0 +1,133 @@
+[TimeLoop]
+DtInitial = 1e1                                                 #[s]        #Start_time                             Source:own
+TEnd = 1.262e10                                                 #[s]        #Ende_Time                              Source:own(400years)
+MaxTimeStepSize = 3e7                                           #[s]        #Max_TimeStep                           Source:own
+StepTimeIncreaseFactor = 1.4                                    #[-]        #StepSize_Increase_Factor               Source:own
+NewMaxTimeStepSizeRange =  12 25                                            #Specific_Time_Frame_For_Specific_Max_TimeStep
+NewMaxTimeStepSize = 1e6                                                    #Specific_Max_TimeStep_For_Specific_Time_Frame
+
+[Vtk]
+AddVelocity = true
+
+[PrimaryVariableSwitch]
+Verbosity = 2
+
+[Grid]
+File = ./grids/spe11b_box.dgf                                               #Mesh_source                            #Source:4.2_own_re-scaled(8400x1200)           
+Verbosity = true                                                            #Info_output
+
+
+[Problem]
+Name = /media/pcx/Volume/final/2df/master2/2d_master2
+EnableGravity = true
+UseBoundaryVolume = true
+BoundaryVolumeMultiplier = 5e4              # m³/m²_boundary
+Dispersivity = 10                           # m
+
+[Well1]
+UseWell = true
+Position = 2700 300 0
+StartTime = 1.5768e9   # 1.5768e9 original -> 50 Jahre
+EndTime = 3.1536e9     # 3.1536e9 original -> 100 Jahre
+DtInitialStart = 1e1
+DtInitialEnd = 1e1
+InjectionRate = 0.035
+InjectionPressure = 1e6
+InjectionTemperature = 283.15
+
+[Well2]
+UseWell = true
+Position = 5100 700 0
+StartTime = 2.3652e9   # 2.3652e9 original -> 75 Jahre
+EndTime = 3.1536e9     # 3.1536e9 original -> 100 Jahre
+DtInitialStart = 1e1
+DtInitialEnd = 1e1
+InjectionRate = 0.035 # 0.035 original
+InjectionPressure = 1e6
+InjectionTemperature = 283.15
+
+
+[FluidSystem]
+NTemperature = 100       # [-] number of tabularization entries
+NPressure = 200          # [-] number of tabularization entries
+PressureLow = 1e5        # [Pa] low end for tabularization of fluid properties
+PressureHigh = 3e7       # [Pa] high end for tabularization of fluid properties
+TemperatureLow = 278.00  # [K] low end for tabularization of fluid properties
+TemperatureHigh = 623.00 # [K] high end for tabularization of fluid properties
+
+[MaterialLaw]
+UseMasterPermeability = false
+Mode = master2
+
+[Component]
+SolidDensity = 2500			            #[kg/m³]	    #Rock_density				            #Source:Table_5
+SolidHeatCapacity = 850			        #[J/kg*K]	    #Rock_heat_Capacity			            #Source:Table_5
+
+
+[Facies1]
+Porosity = 0.1				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 1e-16			        #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 200
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.32				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 1.9          #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies2]
+Porosity = 0.2				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 1e-13			        #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 8654
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.14				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 1.25         #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies3]
+Porosity = 0.2				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 2e-13		            #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 6120
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.12				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 1.25         #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies4]
+Porosity = 0.2				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 5e-13		            #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 3870
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.12				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 1.25         #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies5]
+Porosity = 0.25				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 1e-12		            #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 3060
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.12				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 0.92         #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies6]
+Porosity = 0.35				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 2e-12		            #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 2561
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.10				                #[-]        	#immobile_water_saturation              #Source:Table_4
+Snr = 0.1				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2
+SolidThermalConductivity = 0.26         #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+[Facies7]
+Porosity = 1e-4				            #[-]        	#absolute_facies_porosity               #Source:Table_4
+Permeability = 1e-20			        #[-]        	#absolute_facies_permeanility           #Source:Table_4
+BrooksCoreyPcEntry = 400000 #dummy
+BrooksCoreyLambda = 0.667		        #[-]        	#from_paper_shape_exponent_1/c2=1/1.5   #Source:Equation_2.8
+Swr = 0.99				                #[-]        	#immobile_water_saturation              #Source:Table_4_(N/A)=own
+Snr = 0.0				                #[-]        	#immobile_gas(co2)_saturation           #Source:Table_2_(N/A)=own
+SolidThermalConductivity = 2.0          #[W/m*K]	    #Rock_heat_Conductivity			        #Source:Table_4
+
+
+[Brine]
+Salinity = 0.0
+
